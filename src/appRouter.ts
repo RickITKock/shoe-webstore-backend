@@ -60,4 +60,33 @@ appRouter.post(
   signUpUserHandler
 );
 
+interface ProductResponseData {
+  id: string;
+  name: string;
+  description: string;
+  imagePath: string;
+  price: number;
+  stock: number;
+}
+
+const dummyShoes: [ProductResponseData] = [
+  {
+    id: "0",
+    name: "lorem",
+    description: "lor",
+    imagePath:
+      "https://static.nike.com/a/images/c_limit,w_592,f_auto/t_product_v1/93fd72d0-516d-40af-8204-3879a7f10036/air-jordan-1-low-herenschoenen-X55MZq.png",
+    price: 100,
+    stock: 5,
+  },
+];
+
+export async function getProductsHandler(req: Request, res: Response) {
+  const { body } = req;
+  console.log(body);
+  return res.status(200).send(dummyShoes);
+}
+
+appRouter.get("/products", getProductsHandler);
+
 export default appRouter;
