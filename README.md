@@ -1,4 +1,4 @@
-# Show Webstore Backend Powered by Express
+# Shoe Webstore Backend Powered by Express
 
 ## A fully functional project written in TypeScript showing how to create a proper REST API
 
