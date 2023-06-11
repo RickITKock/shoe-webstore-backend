@@ -1,6 +1,9 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { body, param, validationResult } from "express-validator";
-import { signUpUserHandler } from "./resources/user/user.handler";
+import {
+  loginUserHandler,
+  signUpUserHandler,
+} from "./resources/user/user.handler";
 
 const appRouter = Router();
 
@@ -195,6 +198,18 @@ appRouter.post(
       .withMessage("Password must be between 4 and 6 characters long"),
   ],
   signUpUserHandler
+);
+
+appRouter.post(
+  "/users/login/:email/:password",
+  [
+    param("email").isEmail().withMessage("Email must be a valid email address"),
+    param("password")
+      .trim()
+      .isLength({ min: 4, max: 20 })
+      .withMessage("Password must be between 4 and 6 characters long"),
+  ],
+  loginUserHandler
 );
 
 appRouter.all("*", async (req: Request, res: Response, next: NextFunction) => {
