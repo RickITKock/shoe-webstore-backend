@@ -1,6 +1,15 @@
 import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
 
+interface AuthenticationResponseData {
+  id: string;
+  email: string;
+  password: string;
+  admin: boolean;
+}
+
+const users: Array<AuthenticationResponseData> = [];
+
 export async function signUpUserHandler(req: Request, res: Response) {
   const errors = validationResult(req);
 
@@ -9,7 +18,15 @@ export async function signUpUserHandler(req: Request, res: Response) {
     return res.status(400).send({ errors: errors.array() });
   }
 
-  const { body } = req;
-  console.log(body);
+  const user = {
+    id: `${users.length}`,
+    email: req.params.email,
+    password: req.params.password,
+    admin: false,
+  };
+  users.push(user);
+
+  console.log(users);
+
   return res.status(200).send({});
 }

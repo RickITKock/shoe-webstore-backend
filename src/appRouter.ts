@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { body, validationResult } from "express-validator";
+import { body, param, validationResult } from "express-validator";
 import { signUpUserHandler } from "./resources/user/user.handler";
 
 const appRouter = Router();
@@ -169,6 +169,33 @@ export async function getProductsHandler(req: Request, res: Response) {
 // appRouter.get("/products/:id", getProductHandler);
 
 appRouter.get("/products", getProductsHandler);
+
+/**
+ * @openapi
+ *  /api/users/signup:
+ *   post:
+ *    tags:
+ *    - Users
+ *    summary: Sign up a user
+ *    description: Sign up a user
+ *    operationId: signUpUser
+ *    responses:
+ *     200:
+ *      description: Successful operation.
+ *     400:
+ *      description: Invalid email or password(s).
+ */
+appRouter.post(
+  "/users/signup/:email/:password",
+  [
+    param("email").isEmail().withMessage("Email must be a valid email address"),
+    param("password")
+      .trim()
+      .isLength({ min: 4, max: 20 })
+      .withMessage("Password must be between 4 and 6 characters long"),
+  ],
+  signUpUserHandler
+);
 
 appRouter.all("*", async (req: Request, res: Response, next: NextFunction) => {
   console.log(req);
