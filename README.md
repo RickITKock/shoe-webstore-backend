@@ -1,8 +1,8 @@
-# Auth Backend Powered by Express
+# Show Webstore Backend Powered by Express
 
 ## A fully functional project written in TypeScript showing how to create a proper REST API
 
-This project is built to handle authentication and authorization. It serves as the backend for [auth-frontend-vue](http://github.com/RickITKock/auth-frontend-vue).
+This project is built to all backend functions for [shoe-webstore-frontend](http://github.com/RickITKock/angular-frontend-webshop-old).
 
 ## Installation
 
